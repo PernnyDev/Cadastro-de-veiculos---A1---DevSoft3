@@ -1,9 +1,55 @@
 <form action="/add" method="post">
-
-<h1>Cadastro de postagens</h1>
-<p>Titulo: </p>
-<input type="text" name="titulo">
-<p>Conteúdo: </p>
-<textarea name="conteudo" ></textarea><br><br>
-<button type="submit">Cadastrar Postagem</button>
+    <h1>Cadastro de veículos</h1>
+    <p>Marca:</p>
+    <select name="marca" id="marcaSelect">
+        <option value="Toyota">Toyota</option>
+        <option value="Volkswagen">Volkswagen</option>
+        <option value="Honda">Honda</option>
+        <option value="Hyundai">Hyundai</option>
+        <option value="Ford">Ford</option>
+    </select>
+    <p>Modelo:</p>
+    <select name="modelo" id="modeloSelect">
+        <!-- Opções de modelos serão preenchidas dinamicamente com JavaScript -->
+    </select>
+    <p>Ano de Fabricação:</p>
+    <input type="number" name="anoFabricacao">
+    <p>Placa:</p>
+    <input type="text" name="placa"><br><br>
+    <button type="submit">Cadastrar Veículo</button>
 </form>
+
+<script>
+    // Mapeamento de modelos por marca
+    const modelosPorMarca = {
+        Toyota: ["Corolla", "Camry", "RAV4", "Hilux", "Prius"],
+        Volkswagen: ["Golf", "Polo", "Tiguan", "Jetta", "Passat"],
+        Honda: ["Civic", "Accord", "CR-V", "Fit", "HR-V"],
+        Hyundai: ["Elantra", "Tucson", "Santa Fe", "i30", "Kona"],
+        Ford: ["Focus", "Fiesta", "Escape", "Explorer", "Mustang"]
+    };
+
+    // Função para preencher a lista de modelos com base na marca selecionada
+    function preencherModelos() {
+        const marcaSelect = document.getElementById("marcaSelect");
+        const modeloSelect = document.getElementById("modeloSelect");
+        const marcaSelecionada = marcaSelect.value;
+
+        // Limpar opções anteriores
+        modeloSelect.innerHTML = "";
+
+        // Preencher com os modelos da marca selecionada
+        modelosPorMarca[marcaSelecionada].forEach(modelo => {
+            const option = document.createElement("option");
+            option.value = modelo;
+            option.textContent = modelo;
+            modeloSelect.appendChild(option);
+        });
+    }
+
+    // Event listener para atualizar a lista de modelos quando a marca for alterada
+    document.getElementById("marcaSelect").addEventListener("change", preencherModelos);
+
+    // Preencher a lista de modelos inicialmente
+    preencherModelos();
+</script>

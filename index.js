@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser');
-const Post = require('./models/Post');
+const Veiculos = require('./models/veiculos');
 
 //carregaando o cabeçalho do html em outras paginas
 app.engine('handlebars', handlebars.engine({ defaultLayout: 'main' }));
@@ -18,11 +18,11 @@ app.use('/public',express.static('public/css/bootstrap'));
 //rota principal
 app.get('/', function (req, res) {
     //o then passa os posts para nossa view
-Post.findAll().then(function(posts){
+    Veiculos.findAll().then(function(veiculos) {
     //var nposts = JSON.parse(JSON.stringify(posts))
     //res.render('home', {posts: nposts})
-    posts=posts.map((post)=>{return post.toJSON()});//res.render('home', {posts: posts})
-    res.render('home', {posts: posts});});
+    veiculos=veiculos.map((veiculos)=>{return veiculos.toJSON()});//res.render('home', {posts: posts})
+    res.render('home', {veiculos: veiculos});});
 });
 
 //rota para cadastro
@@ -33,9 +33,12 @@ app.get('/cad', function (req, res) {
 
 //fazendo a inserção no banco de dados
 app.post('/add', function (req, res) {
-    Post.create({
-        titulo: req.body.titulo,
-        conteudo: req.body.conteudo
+    const { marca, modelo, anoFabricacao, placa } = req.body;
+    Veiculos.create({
+        marca: marca,
+        modelo: modelo,
+        anoFabricacao: anoFabricacao,
+        placa: placa
     }).then(function () {
         //redirecionado para home com barras
         res.redirect('/');
@@ -47,32 +50,39 @@ app.post('/add', function (req, res) {
 //excluindo um post
 
 app.get('/deletar/:id', function (req, res) {
-Post.destroy({where: {'id': req.params.id}}).then(function(){
+    Veiculos.destroy({where: {'id': req.params.id}}).then(function(){
     res.redirect('/');
 }).catch(function(erro){
-    res.send('Esta postagem não existe!');
+    res.send('Esta veiculo não existe!');
 });
 });
 
 //rota para alterar
 app.get('/alterar/:id', function (req, res) {
-    Post.findAll({where: {'id': req.params.id}}).then(function(posts){
+    Veiculos.findAll({where: {'id': req.params.id}}).then(function(veiculos){
        //var nposts = JSON.parse(JSON.stringify(posts))
         //res.render('home', {posts: nposts})  
-        posts=posts.map((post)=>{return post.toJSON()});//res.render('home', {posts: posts})    
-        res.render('alterar', {posts: posts});
+        veiculos=veiculos.map((veiculos)=>{return veiculos.toJSON()});//res.render('home', {posts: posts})    
+        res.render('alterar', {veiculos: veiculos});
     }).catch(function(erro){
-        res.send('Esta postagem não existe!');
+        res.send('Esta veiculo não existe!');
     });
 });
 
 //fazendo a alteração no banco de dados
 app.post('/update', function (req, res) {
-    Post.update({titulo: req.body.titulo, 
-                conteudo: req.body.conteudo}, 
-                {where: {'id': req.body.id}}).then(function(){
+    Veiculos.update({
+       
+        marca: req.body.marca,
+        modelo: req.body.modelo,
+        anoFabricacao: req.body.anoFabricacao,
+        placa: req.body.placa
+    },
+    { where: { 'id': req.body.id } })
+    .then(function () {
         res.redirect('/');
-    }).catch(function(erro){
+    })
+    .catch(function (erro) {
         res.send('Essa postagem não existe ' + erro);
     });
 });
