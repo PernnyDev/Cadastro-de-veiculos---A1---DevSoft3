@@ -59,7 +59,7 @@ app.post('/add', function (req, res) {
     }); 
 });
 
-//excluindo um post
+//excluindo um veiculo
 
 app.get('/deletar/:id', function (req, res) {
     Veiculos.destroy({where: {'id': req.params.id}}).then(function(){
