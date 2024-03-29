@@ -12,7 +12,19 @@ app.use(bodyParser.json());
 
 //arquivos estaticos
 
-app.use('/public',express.static('public/css/bootstrap'));
+//arquivos estaticos
+app.use('/public/img', express.static('public/img'));
+app.use('/public/css/bootstrap', express.static('public/css/bootstrap')); // add this line for bootstrap styling
+
+//rota principal
+app.get('/', function (req, res) {
+    //o then passa os posts para nossa view
+    Veiculos.findAll().then(function(veiculos) {
+    //var nposts = JSON.parse(JSON.stringify(posts))
+    //res.render('home', {posts: nposts})
+    veiculos=veiculos.map((veiculos)=>{return veiculos.toJSON()});//res.render('home', {posts: posts})
+    res.render('home', {veiculos: veiculos});});
+});
 
 
 //rota principal

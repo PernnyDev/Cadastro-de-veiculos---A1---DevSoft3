@@ -1,55 +1,71 @@
-<form action="/add" method="post">
-    <h1>Cadastro de veículos</h1>
-    <p>Marca:</p>
-    <select name="marca" id="marcaSelect">
-        <option value="Toyota">Toyota</option>
-        <option value="Volkswagen">Volkswagen</option>
-        <option value="Honda">Honda</option>
-        <option value="Hyundai">Hyundai</option>
-        <option value="Ford">Ford</option>
-    </select>
-    <p>Modelo:</p>
-    <select name="modelo" id="modeloSelect">
-        <!-- Opções de modelos serão preenchidas dinamicamente com JavaScript -->
-    </select>
-    <p>Ano de Fabricação:</p>
-    <input type="number" name="anoFabricacao">
-    <p>Placa:</p>
-    <input type="text" name="placa"><br><br>
-    <button type="submit">Cadastrar Veículo</button>
-</form>
+<main>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div class="container-fluid py-5">
+            <div class="d-flex justify-content-center">
+                <img src="/public/img/img_cadastro.gif" alt="Imagem" class="img-fluid" style="max-height: 150px;">
+            </div>
+            <h3>Cadastro de veículos</h3>
+            <div class="card">
+                <div class="card-body">
+                    <form action="/add" method="post">
 
-<script>
-    // Mapeamento de modelos por marca
-    const modelosPorMarca = {
-        Toyota: ["Corolla", "Camry", "RAV4", "Hilux", "Prius"],
-        Volkswagen: ["Golf", "Polo", "Tiguan", "Jetta", "Passat"],
-        Honda: ["Civic", "Accord", "CR-V", "Fit", "HR-V"],
-        Hyundai: ["Elantra", "Tucson", "Santa Fe", "i30", "Kona"],
-        Ford: ["Focus", "Fiesta", "Escape", "Explorer", "Mustang"]
-    };
+                        <p>Marca:</p>
+                        <select name="marca" id="marcaSelect">
+                            <option value="Toyota">Toyota</option>
+                            <option value="Volkswagen">Volkswagen</option>
+                            <option value="Honda">Honda</option>
+                            <option value="Hyundai">Hyundai</option>
+                            <option value="Ford">Ford</option>
+                        </select>
+                        <p>Modelo:</p>
+                        <select name="modelo" id="modeloSelect">
+                            <!-- Opções de modelos serão preenchidas dinamicamente com JavaScript -->
+                        </select>
+                        <p>Ano de Fabricação:</p>
+                        <input type="number" name="anoFabricacao">
+                        <p>Placa:</p>
+                        <input type="text" name="placa"><br><br>
+                        <hr>
+                        <button type="submit" class="btn btn-success mt-3">Cadastrar Veículo</button>
+                    </form>
+                    <button type="button" class="btn btn-primary mt-3" onclick="window.location.href='/'">Voltar</button>
+                    <script>
+                        // Mapeamento de modelos por marca
+                        const modelosPorMarca = {
+                            Toyota: ["Corolla", "Camry", "RAV4", "Hilux", "Prius"],
+                            Volkswagen: ["Golf", "Polo", "Tiguan", "Jetta", "Passat"],
+                            Honda: ["Civic", "Accord", "CR-V", "Fit", "HR-V"],
+                            Hyundai: ["Elantra", "Tucson", "Santa Fe", "i30", "Kona"],
+                            Ford: ["Focus", "Fiesta", "Escape", "Explorer", "Mustang"]
+                        };
 
-    // Função para preencher a lista de modelos com base na marca selecionada
-    function preencherModelos() {
-        const marcaSelect = document.getElementById("marcaSelect");
-        const modeloSelect = document.getElementById("modeloSelect");
-        const marcaSelecionada = marcaSelect.value;
+                        // Função para preencher a lista de modelos com base na marca selecionada
+                        function preencherModelos() {
+                            const marcaSelect = document.getElementById("marcaSelect");
+                            const modeloSelect = document.getElementById("modeloSelect");
+                            const marcaSelecionada = marcaSelect.value;
 
-        // Limpar opções anteriores
-        modeloSelect.innerHTML = "";
+                            // Limpar opções anteriores
+                            modeloSelect.innerHTML = "";
 
-        // Preencher com os modelos da marca selecionada
-        modelosPorMarca[marcaSelecionada].forEach(modelo => {
-            const option = document.createElement("option");
-            option.value = modelo;
-            option.textContent = modelo;
-            modeloSelect.appendChild(option);
-        });
-    }
+                            // Preencher com os modelos da marca selecionada
+                            modelosPorMarca[marcaSelecionada].forEach(modelo => {
+                                const option = document.createElement("option");
+                                option.value = modelo;
+                                option.textContent = modelo;
+                                modeloSelect.appendChild(option);
+                            });
+                        }
 
-    // Event listener para atualizar a lista de modelos quando a marca for alterada
-    document.getElementById("marcaSelect").addEventListener("change", preencherModelos);
+                        // Event listener para atualizar a lista de modelos quando a marca for alterada
+                        document.getElementById("marcaSelect").addEventListener("change", preencherModelos);
 
-    // Preencher a lista de modelos inicialmente
-    preencherModelos();
-</script>
+                        // Preencher a lista de modelos inicialmente
+                        preencherModelos();
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>

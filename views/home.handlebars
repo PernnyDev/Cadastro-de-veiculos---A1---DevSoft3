@@ -1,18 +1,49 @@
-
-<br><div><a href="/cad"><button>Cadastrar</button></a></div><br><br>
-<h1>Lista de Veículos: </h1>
-
-{{#each veiculos}}
-    <h1>Id:{{id}}</h1>
-    <h2>Marca:{{this.marca}}</h2>
-    <h2>Modelo:{{this.modelo}}</h2>
-    <h2>Ano de Fabricação:{{this.anoFabricacao}}</h2>
-    <h2>Placa:{{this.placa}}</h2>
-    <a href="/deletar/{{id}}"><button>Deletar</button>  </a>
-    <a href="/alterar/{{id}}"><button>Alterar</button>  </a>
-    <hr>
-{{/each}}
-
-
-        
+<main>
+    <div class="p-5 mb-4 bg-light rounded-3">
+        <div=class="container-fluid py5">
+            <div class="d-flex justify-content-center">
+                <img src="/public/img/img_Lista.gif" alt="Imagem" class="img-fluid" style="max-height: 150px;">
+            </div>
+            <h2>Lista de Veículos: </h2>
+            <hr>
+            <a href="/cad">
+                <button class="btn btn-success">Cadastrar veiculos</button></a>
+            {{#each veiculos}}
+            <div class="card m-4">
+                <div class="card-body">
+                    <h5 class="card-title">Id:{{id}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Marca:{{this.marca}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Modelo:{{this.modelo}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Ano de Fabricação:{{this.anoFabricacao}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Placa:{{this.placa}}</h6>
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#deleteModal{{id}}">
+                        <button class="btn btn-danger mt-3">Deletar</button></a>
+                    <a href="/alterar/{{id}}"> 
+                        <button class="btn btn-success mt-3">Alterar</button></a>
+                </div>
+            </div>
+            <!-- Delete Modal -->
+            <div class="modal fade" id="deleteModal{{id}}" tabindex="-1" aria-labelledby="deleteModalLabel{{id}}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel{{id}}">Confirmação de Remoção</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Tem certeza que deseja remover este veículo?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <a href="/deletar/{{id}}">
+                                <button type="button" class="btn btn-danger">Remover</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            </div=class=>
+    </div>
+</main>
 {{! Path: views/formulario.handlebars }}
